@@ -1,0 +1,15 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { App } from './App'
+import { InputForm } from './components'
+import './normalize.css'
+import './styles.css'
+
+
+ReactDOM.createRoot(
+    document.getElementById('root')
+).render(
+    <App />
+)
+
+
