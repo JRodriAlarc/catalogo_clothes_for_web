@@ -1,13 +1,14 @@
 import style from "./SelectForm.module.css"
 
-export const SelectForm = ({ arrOptions = [], onChange , name, value, }) => {
+export const SelectForm = ({ arrOptions = [], onChange, name, value, }) => {
     return (
         <>
-            <select 
+            <select
 
                 className={style[`select`]}
                 name={name}
                 defaultValue={value}
+                onChange={onChange}
 
             >
                 <option
@@ -28,7 +29,7 @@ export const SelectForm = ({ arrOptions = [], onChange , name, value, }) => {
                         </option>
                     ))
                 }
-                
+
             </select>
         </>
     )

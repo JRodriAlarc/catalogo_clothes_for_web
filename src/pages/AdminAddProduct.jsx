@@ -1,17 +1,36 @@
-import { useEffect, useRef, useState } from "react"
-import { UploadFile, InputForm, SelectForm, ButtonCustom } from "../components/index"
-import { db, storage } from "../firebase/firebase"
+import { useContext, useEffect, useRef, useState } from "react"
+import { useNavigate } from 'react-router-dom'
+import { UploadFile, InputForm, SelectForm, ButtonCustom, AwaitLoading } from "../components/index"
+import { db, storage, auth } from "../firebase/firebase"
 import { doc, setDoc, collection, addDoc } from "firebase/firestore";
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 
+
+
+import { signOut } from "firebase/auth"
+/* import { uploadBytes, ref, getDownloadURL } from "firebase/storage" */
 import style from "./AdminAddProduct.module.css"
-import logoApp from "../images/logo_aplicacion_catalogo_ropa.png"
 import Swal from "sweetalert2";
+import { UserContext } from "../context/UserContext";
 
 export const AdminAddProduct = () => {
 
+    const { setUser } = useContext(UserContext)
     const inputFileRef = useRef()
-    const inputNameClohtRef = useRef()
+    const navigation = useNavigate()
+    const [isLoading, setIsLoading] = useState(false)
+
+    const logOutFirebase = async () => {
+        try {
+            await signOut(auth)
+            setUser(null)
+            navigation(`/login`)
+
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
 
     useEffect(() => {
@@ -21,13 +40,10 @@ export const AdminAddProduct = () => {
     const [data, setData] = useState({
         nameCloth: "",
         description: "",
-        category: "pantalones",
+        category: "",
         imgCloth: ""
 
     })
-
-    /* const [srcImageShow, setSrcImageShow] = useState("") */
-    /* const [fileImgCloth, setFileImgCloth] = useState() */
 
     const { nameCloth, description, category, imgCloth, } = data
 
@@ -53,15 +69,15 @@ export const AdminAddProduct = () => {
                 showConfirmButton: false,
                 showCloseButton: true
             })
-            setFileImgCloth(null)
-            setSrcImageShow(null)
+            setData(
+                {
+                    ...data,
+                    ['imgCloth']: ""
+                }
+            )
 
             return
         }
-
-        /* modificar el estado */
-        /* setFileImgCloth(newImgCloth) */
-
         const fileReader = new FileReader()
         fileReader.readAsDataURL(newImgCloth)
 
@@ -72,21 +88,9 @@ export const AdminAddProduct = () => {
                     ['imgCloth']: e.target.result
                 }
             )
-
         }
-
-        /* const fileRef = ref(storage, `documentos/${newImgCloth.name}`);
-
-        await uploadBytes(fileRef, newImgCloth)
-
-        const newImgCloth = await getDownloadURL(fileRef)
-        setData(
-            {
-                ...data,
-                ['imgCloth']: newImgCloth
-            }
-        ) */
     }
+
     const onSubmitFormAddCloth = async event => {
         event.preventDefault()
         const estaVacio = Object.values(data).includes('')
@@ -100,27 +104,8 @@ export const AdminAddProduct = () => {
             })
             return
         }
-
         try {
-            /* const clothesCollection = collection(db, 'clothes')
-            const fileRef = ref(storage, `documentos/${fileImgCloth.name}`);
-            await uploadBytes(fileRef, fileImgCloth)
-            const newImgCloth = await getDownloadURL(fileRef)
-
-            setData(
-                {
-                    ...data,
-                    ['imgCloth']: newImgCloth
-                }
-            ) */
-
-            /* setData(
-                {
-                    ...data,
-                    ['imgCloth']: newImgCloth
-                }
-            ) */
-
+            setIsLoading(true)
             const clothesCollection = collection(db, 'clothes')
             await addDoc(clothesCollection, {
                 nameCloth,
@@ -128,7 +113,6 @@ export const AdminAddProduct = () => {
                 category,
                 imgCloth,
             })
-
             Swal.fire({
                 icon: 'success',
                 title: 'Se agrego la nueva prenda',
@@ -143,10 +127,13 @@ export const AdminAddProduct = () => {
                 imgCloth: ""
             })
 
-            inputFileRef.current.focus()
 
         } catch (error) {
             console.log(error);
+        }
+
+        finally {
+            setIsLoading(false)
         }
 
     }
@@ -165,6 +152,9 @@ export const AdminAddProduct = () => {
 
     return (
         <section className={style[`page`]}>
+            {
+                isLoading ? <AwaitLoading /> : null
+            }
             <div className={style[`page__row`]}>
 
                 <div className={style[`page__column1`]}>
@@ -176,7 +166,9 @@ export const AdminAddProduct = () => {
                         {
                             imgCloth ?
                                 <ButtonCustom
+                                    style={{ width: "200px" }}
                                     content="Ver foto"
+                                    icon={<i className="fa-solid fa-camera"></i>}
                                     onClick={() => {
                                         Swal.fire({
                                             imageUrl: imgCloth,
@@ -189,11 +181,6 @@ export const AdminAddProduct = () => {
                                 null
                         }
                     </div>
-                    {/*  <img
-                        src={logoApp}
-                        alt="logo del catalogo"
-                        className={style[`logo-img`]}
-                    /> */}
                     <UploadFile
                         name={`imgCloth`}
                         inputFileRef={inputFileRef}
@@ -202,6 +189,10 @@ export const AdminAddProduct = () => {
                         onDropUploadContainer={onDropUploadContainer}
 
                     />
+
+                    <button onClick={() => logOutFirebase()}>
+                        Cerrar sesion
+                    </button>
                 </div>
 
                 <form
@@ -219,7 +210,18 @@ export const AdminAddProduct = () => {
                     />
 
                     <SelectForm
-                        arrOptions={['pantalones', 'camisas', 'zapatos']}
+                        arrOptions={
+                            [
+                                'pantalones',
+                                'camisas',
+                                'playeras',
+                                'sudaderas',
+                                'chamarras',
+                                'vestidos',
+
+
+                            ]
+                        }
                         onChange={onChangeInput}
                         value={category}
                         name={`category`}
@@ -231,10 +233,8 @@ export const AdminAddProduct = () => {
                         className={style[`textarea-description`]}
                         placeholder="Descripcion de la prenda"
                         onChange={onChangeInput}
+                        value={description}
                     ></textarea>
-
-
-
 
 
 

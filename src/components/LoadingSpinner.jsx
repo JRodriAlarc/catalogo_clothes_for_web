@@ -1,0 +1,7 @@
+import style from './LoadingSpinner.module.css'
+
+export const LoadingSpinner = () => {
+    return (
+        <div className={style["spinner"]}></div>
+    )
+}

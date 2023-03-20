@@ -1,5 +1,8 @@
 .button-custom {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
     border-radius: 1.8rem;
     background-color: #3437d8;
     border: none;
@@ -11,8 +14,8 @@
     width: 130px;
     transition: all 0.5s;
     cursor: pointer;
-    
-    
+
+
 }
 
 .button-custom__span {

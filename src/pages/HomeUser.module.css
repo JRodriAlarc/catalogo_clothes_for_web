@@ -1,0 +1,126 @@
+:root {
+    --color1: #E8F6FA;
+    --color2: #1A2F59;
+    --color3: #D0E2ED;
+    --color4: #94D7FF;
+    --main: #3437d8;
+    --sizeButtonSearch: 40px
+}
+
+.btn-log-out {
+    position: fixed;
+    display: block;
+    width: 200px;
+    bottom: 0;
+    right: 0;
+}
+
+.main-title {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 3.4rem;
+    font-weight: bolder;
+    color: var(--color2);
+}
+
+.home-user {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-height: 100vh;
+}
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color3);
+}
+
+.menu-lateral {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.menu-lateral__link {
+    display: flex;
+    padding: 1.2rem .8rem;
+    /* background-color: red; */
+    font-size: 1.2rem;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--color2);
+    font-weight: bold;
+}
+
+
+.content {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    padding: 2rem;
+    background-color: var(--color1)
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-main {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
+}
+
+.menu-main__link {
+    display: block;
+    text-decoration: none;
+    color: var(--color2);
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: .5rem;
+}
+
+
+.form-search {
+    display: grid;
+    grid-template-columns: 1fr var(--sizeButtonSearch);
+    grid-template-areas:
+        "input input input btn"
+    ;
+    background-color: white;
+    border-radius: 1.2rem;
+    overflow: hidden;
+}
+
+.form-search__input-text {
+    display: block;
+    padding: .5rem 1.2rem;
+    border: none;
+
+    grid-area: 'btn';
+}
+
+.form-search__input-text:focus {
+    outline: none;
+}
+
+.form-search__btn {
+    grid-area: 'btn';
+    height: var(--sizeButtonSearch);
+    background-color: var(--color4);
+    color: white;
+    border-radius: 50%;
+    outline: none;
+    border: none;
+}
+.cards-clothes {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+}

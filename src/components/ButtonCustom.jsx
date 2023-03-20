@@ -1,6 +1,6 @@
 import styles from './ButtonCustom.module.css'
 
-export const ButtonCustom = ({ type = "", content = "", style = {} , onClick}) => {
+export const ButtonCustom = ({ type, content, style = {}, onClick, icon }) => {
     return (
         <button
             type={type}
@@ -11,6 +11,8 @@ export const ButtonCustom = ({ type = "", content = "", style = {} , onClick}) =
             <span
                 className={styles[`button-custom__span`]}
             >{content}</span>
+
+            {icon}
         </button>
     )
 }
