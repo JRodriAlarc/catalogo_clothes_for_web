@@ -32,17 +32,17 @@
     background-color: #F2F6F8;
 }
 
-.textarea-description {
+.textarea {
     display: block;
     padding: 1rem;
     background-color: inherit;
     width: 100%;
     border-radius: .5rem;
     resize: none;
-    min-height: 8rem;
+    min-height: 5rem;
     border: 2px solid #3437d8;
     
 }
-.textarea-description:focus {
+.textarea:focus {
     outline: none;
 }

@@ -1,10 +1,10 @@
 
-import { Login, Register, AdminAddProduct, LoadingApp, HomeUser } from "./pages/index"
+import { Login, Register, AdminAddProduct, LoadingApp, HomeUserCloths, HomeUserAcount } from "./pages/"
 
 import { AwaitLoading, ProctectedRoute, UserProvider } from "./components/index";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { Home, Products, Acount, Favorites } from "./pages/pages/index";
 export const App = () => {
 
     return (
@@ -12,6 +12,7 @@ export const App = () => {
         <UserProvider>
             <BrowserRouter>
                 <Routes>
+
                     <Route
                         path="/"
                         element={<LoadingApp />}
@@ -44,12 +45,30 @@ export const App = () => {
 
 
                     <Route
-                        path="/homeUser"
+                        path={`/homeCloths`}
                         element={
                             <ProctectedRoute>
-                                <HomeUser />
-                            </ProctectedRoute>}
+
+                                <HomeUserCloths />
+
+                            </ProctectedRoute>
+                        }
                     />
+
+                    <Route
+                        path={`/homeAcount`}
+                        element={
+                            <ProctectedRoute>
+
+                                <HomeUserAcount />
+
+                            </ProctectedRoute>
+                        }
+                    />
+
+
+
+
 
                 </Routes>
             </BrowserRouter>

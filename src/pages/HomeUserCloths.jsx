@@ -1,33 +1,52 @@
 
-
-import { auth } from '../firebase/firebase'
-import { signOut } from "firebase/auth"
-import { useNavigate } from 'react-router-dom'
-
-import { useContext, useEffect } from 'react'
-import { UserContext } from '../context/UserContext'
-import { ClothCard } from './ClothCard'
+import { db } from "../firebase/firebase"
+import { collection, getDocs } from "firebase/firestore"
+import { NavLink, } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { ClothCard, LoadingSpinner } from "../components"
 import style from './HomeUser.module.css'
 
-export const HomeUser = () => {
 
-    const navigation = useNavigate()
-    const { setUser } = useContext(UserContext)
 
+export const HomeUserCloths = () => {
+
+    const [isLoading, setIsLoading] = useState(false)
+
+    const [arrClothes, setArrClothes] = useState([])
+
+    useEffect(() => {
+
+
+        const getCloths = async () => {
+            let temp = []
+
+            try {
+                setIsLoading(true)
+                const querySnapshot = await getDocs(collection(db, "clothes"));
+                querySnapshot.forEach((doc) => {
+                    const objCloth = doc.data()
+                    temp = [...temp, objCloth]
+                })
+
+                setIsLoading(false)
+
+                setArrClothes(temp)
+
+            } catch (error) {
+
+            }
+
+        }
+
+        getCloths()
+    }, [])
+
+    
     useEffect(() => {
         document.title = "Home "
     })
 
-    const logOutFirebase = async () => {
-        try {
-            await signOut(auth)
-            setUser(null)
-            navigation(`/login`)
-
-        } catch (error) {
-            console.log(error);
-        }
-    }
+   
 
     return (
         <section className={style[`home-user`]}>
@@ -35,37 +54,37 @@ export const HomeUser = () => {
             <aside className={style['aside']}>
                 <nav className='menu-lateral'>
 
-                    <a
-                        href=""
+                    {/* <NavLink
+                        to={`/homeUser/home`}
                         className={style['menu-lateral__link']}
                     >
                         <i className="fa-solid fa-house"></i>
                         Home
-                    </a>
+                    </NavLink> */}
 
-                    <a
-                        href=""
+                    <NavLink
+                        to={`/homeCloths`}
                         className={style['menu-lateral__link']}
                     >
                         <i className="fa-solid fa-list"></i>
-                        Products
-                    </a>
+                        Clothes
+                    </NavLink>
 
-                    <a
-                        href=""
+                    {/* <NavLink
+                        to={`/homeUser/favorites`}
                         className={style['menu-lateral__link']}
                     >
                         <i className="fa-solid fa-heart"></i>
                         Favorites
-                    </a>
+                    </NavLink> */}
 
-                    <a
-                        href=""
+                    <NavLink
+                        to={`/homeAcount`}
                         className={style['menu-lateral__link']}
                     >
                         <i className="fa-solid fa-circle-user"></i>
-                        Home
-                    </a>
+                        Acount
+                    </NavLink>
 
 
                 </nav>
@@ -153,34 +172,50 @@ export const HomeUser = () => {
                     </a>
                 </nav>
 
-                <div className={style['cards-clothes']}>
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    {/* <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
 
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard />
-                    <ClothCard /> */}
-                </div>
+                {
+                    isLoading ?
+                        <div className={style['contenedor-spinner']}>
+                            <LoadingSpinner />
+                        </div>
+                        :
+                        <div className={style['cards-clothes']}>
+
+                            {
+                                arrClothes.map(({ nameCloth, imgCloth, sizesCloth, colorsCloth, priceCloth, category }) => {
+                                    return (
+                                        <ClothCard
+                                            key={crypto.randomUUID()}
+                                            category={category}
+                                            nameCloth={nameCloth}
+                                            imgCloth={imgCloth}
+                                            sizesCloth={sizesCloth}
+                                            colorsCloth={colorsCloth}
+                                            priceCloth={priceCloth}
+                                        />
+                                    )
+                                })
+                            }
+                        </div>
+
+                }
             </div>
 
-            <button
+            {/* <Routes>
+                <Route 
+                    path="/home"
+                    element={<h1>Hola</h1>}
+                />
+            </Routes> */}
+
+            {/*  <button
                 className={style['btn-log-out']}
                 onClick={() => logOutFirebase()}
             >
                 Cerrar Sesion
-            </button>
+            </button> */}
         </section>
+
 
     )
 }

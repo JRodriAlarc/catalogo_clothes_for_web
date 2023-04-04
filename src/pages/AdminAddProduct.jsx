@@ -11,6 +11,7 @@ import { signOut } from "firebase/auth"
 import style from "./AdminAddProduct.module.css"
 import Swal from "sweetalert2";
 import { UserContext } from "../context/UserContext";
+import { validateColorsCloth, validateSizesCloth } from "../helpers";
 
 export const AdminAddProduct = () => {
 
@@ -39,13 +40,16 @@ export const AdminAddProduct = () => {
 
     const [data, setData] = useState({
         nameCloth: "",
-        description: "",
+        priceCloth: "",
         category: "",
-        imgCloth: ""
+        imgCloth: "",
+        sizesCloth: "",
+        colorsCloth: ""
+
 
     })
 
-    const { nameCloth, description, category, imgCloth, } = data
+    const { nameCloth, priceCloth, category, imgCloth, sizesCloth, colorsCloth} = data
 
     const onChangeInput = ({ target: { value, name } }) => {
         setData(
@@ -104,38 +108,66 @@ export const AdminAddProduct = () => {
             })
             return
         }
-        try {
-            setIsLoading(true)
-            const clothesCollection = collection(db, 'clothes')
-            await addDoc(clothesCollection, {
-                nameCloth,
-                description,
-                category,
-                imgCloth,
-            })
+        else if(!validateColorsCloth(colorsCloth.toLowerCase())) {
             Swal.fire({
-                icon: 'success',
-                title: 'Se agrego la nueva prenda',
+                icon: 'error',
+                title: 'Error!',
+                html: `<span class="error">Formato no válido para los colores de la prenda</span>`,
                 showConfirmButton: false,
                 showCloseButton: true
             })
+            return
+        }
 
-            setData({
-                nameCloth: "",
-                description: "",
-                category: "pantalones",
-                imgCloth: ""
+        else if(!validateSizesCloth(sizesCloth)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                html: `<span class="error">Formato no válido para las tallas de la prenda</span>`,
+                showConfirmButton: false,
+                showCloseButton: true
             })
-
-
-        } catch (error) {
-            console.log(error);
+            return
         }
 
-        finally {
-            setIsLoading(false)
+        else {
+            try {
+                setIsLoading(true)
+                const clothesCollection = collection(db, 'clothes')
+                await addDoc(clothesCollection, {
+                    nameCloth,
+                    priceCloth: parseFloat(priceCloth),
+                    category,
+                    imgCloth,
+                    sizesCloth: sizesCloth.split(','),
+                    colorsCloth: colorsCloth.split(',')
+                })
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se agrego la nueva prenda',
+                    showConfirmButton: false,
+                    showCloseButton: true
+                })
+    
+                setData({
+                    nameCloth: "",
+                    priceCloth: "",
+                    category: "",
+                    imgCloth: "",
+                    sizesCloth: "",
+                    colorsCloth: ""
+                })
+    
+    
+            } catch (error) {
+                console.log(error);
+            }
+    
+            finally {
+                setIsLoading(false)
+            }
+    
         }
-
     }
 
     const onClickButtonFile = (e) => {
@@ -190,9 +222,17 @@ export const AdminAddProduct = () => {
 
                     />
 
-                    <button onClick={() => logOutFirebase()}>
-                        Cerrar sesion
-                    </button>
+                    <ButtonCustom 
+                        content={"Cerrar Sesión"}
+                        onClick={logOutFirebase}
+                        style={
+                            {
+                                width: "180px",
+                                marginLeft: "auto",
+                                marginRight: "auto"
+                            }
+                        }
+                    />
                 </div>
 
                 <form
@@ -208,6 +248,18 @@ export const AdminAddProduct = () => {
                         name="nameCloth"
 
                     />
+
+                    <InputForm
+                        
+                        content="Precio de prenda"
+                        value={priceCloth}
+                        onChange={onChangeInput}
+                        typeInput="number"
+                        name="priceCloth"
+
+                    />
+
+
 
                     <SelectForm
                         arrOptions={
@@ -228,15 +280,22 @@ export const AdminAddProduct = () => {
                     />
 
                     <textarea
-                        name="description"
-                        id="description"
-                        className={style[`textarea-description`]}
-                        placeholder="Descripcion de la prenda"
+                        name="sizesCloth"
+                        id="sizesCloth"
+                        className={style[`textarea`]}
+                        placeholder="Escribe las tallas asi 12,14,16..."
                         onChange={onChangeInput}
-                        value={description}
+                        value={sizesCloth}
                     ></textarea>
 
-
+                    <textarea
+                        name="colorsCloth"
+                        id="colorsCloth"
+                        className={style[`textarea`]}
+                        placeholder="Escribir los colores asi azul,negro,cafe"
+                        onChange={onChangeInput}
+                        value={colorsCloth}
+                    ></textarea>
 
                     <ButtonCustom
                         content="Agregar Nueva Prenda"

@@ -6,8 +6,10 @@ import { doc, setDoc } from "firebase/firestore"
 import { Link, useNavigate } from "react-router-dom"
 import { InputForm, ButtonCustom, AwaitLoading } from "../components/index"
 import Swal from "sweetalert2"
-import { validateNumberPhone, validateEmail } from "../helpers/index";
+import { validateNumberPhone, validateEmail } from "../helpers/index"
 import style from "./Register.module.css"
+import wave from "../images/wave.svg"
+
 
 
 export const Register = () => {
@@ -87,7 +89,7 @@ export const Register = () => {
             })
 
             setUser(newUser)
-            navigation('/homeUser')
+            navigation('/homeCloths')
 
         } catch (error) {
             alert(error)
@@ -189,6 +191,13 @@ export const Register = () => {
                 </div>
 
             </form>
+
+
+            <img
+                src={wave}
+                alt=""
+                className={style['wave-2']}
+            />
         </section>
     )
 }

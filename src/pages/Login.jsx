@@ -1,31 +1,20 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { InputForm, ButtonCustom, AwaitLoading } from '../components/index'
-import { auth, db } from '../firebase/firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import { auth } from '../firebase/firebase'
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import style from './Login.module.css'
+import wave from "../images/wave.svg";
+import { getUserByEmail } from '../helpers'
 
 export const Login = () => {
     const { user, setUser } = useContext(UserContext)
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigate()
-    const getUserByEmail = async email => {
-        const userRef = doc(db, `users/${email}`)
 
-        try {
-            const userDoc = await getDoc(userRef)
-            if (userDoc.exists()) {
-
-                return userDoc.data()
-            }
-        } catch (error) {
-            alert(error)
-        }
-
-    }
+    
 
 
     useEffect(() => {
@@ -41,16 +30,20 @@ export const Login = () => {
 
         const redirectPageByRol = async () => {
             try {
+                setIsLoading(true)
                 const currentUser = await getUserByEmail(user.email)
                 if (currentUser.rol === "administrador") {
                     navigation('/addProduct')
                 }
 
                 else if (currentUser.rol === 'user') {
-                    navigation('/homeUser')
+                    navigation('/homeCloths')
                 }
             } catch (error) {
 
+            }
+            finally{
+                setIsLoading(false)
             }
         }
 
@@ -180,6 +173,18 @@ export const Login = () => {
                 </div>
 
             </form>
+        
+            {/* <img
+                src={wave}
+                alt="" 
+                className={style['wave-1']}
+
+            /> */}
+            <img
+                src={wave}
+                alt="" 
+                className={style['wave-2']}
+            />
 
         </section>
     )

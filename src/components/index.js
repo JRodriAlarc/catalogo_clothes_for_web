@@ -7,6 +7,8 @@ export * from './LoadingSpinner'
 export * from './AwaitLoading'
 export * from './ProctectedRoute'
 export * from './UserProvider'
+export * from './ClothCard'
+
 
 
 

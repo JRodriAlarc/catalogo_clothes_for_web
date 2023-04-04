@@ -6,17 +6,22 @@
 }
 
 .titles {
+    position: relative;
+    z-index: 2;
+    color: white;
     margin-top: 2rem;
     padding-left: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 .titles__subtitle {
+    text-shadow: -2px 3px 2px #000000;
     font-size: 2.2rem;
     margin-bottom: .8rem;
 }   
 
 .titles__title {
+    text-shadow: -2px 3px 2px #000000;
     margin-top: 0;
     margin-bottom: 0;
     font-size: 3.4rem;
@@ -50,6 +55,19 @@
     text-decoration: none;
     font-weight: bold;
 }
+/* .wave-1 {
+    display: block;
+    width: 100vw;
+    bottom: 100px;
+    height: 100px;
+} */
+
+.wave-2 {
+    transform: rotate(180deg);
+    position: fixed;
+    top: -40px;
+}
+
 
 @media screen and (max-width: 400px) {
     .form {

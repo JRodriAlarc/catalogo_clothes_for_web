@@ -3,8 +3,12 @@
     --color2: #1A2F59;
     --color3: #D0E2ED;
     --color4: #94D7FF;
+    --color5: #F8FDFF;
+    --color6: #BDD8E8;
+
     --main: #3437d8;
-    --sizeButtonSearch: 40px
+    --sizeButtonSearch: 40px;
+    --sizeHeightContainerCards: 500px;
 }
 
 .btn-log-out {
@@ -46,7 +50,6 @@
 .menu-lateral__link {
     display: flex;
     padding: 1.2rem .8rem;
-    /* background-color: red; */
     font-size: 1.2rem;
     gap: 1rem;
     text-decoration: none;
@@ -58,6 +61,7 @@
 .content {
     height: 100%;
     display: grid;
+    gap: 1rem;
     grid-template-rows: auto auto 1fr;
     padding: 2rem;
     background-color: var(--color1)
@@ -119,8 +123,26 @@
     outline: none;
     border: none;
 }
+
 .cards-clothes {
     display: grid;
+    height: var(--sizeHeightContainerCards);
+    overflow: auto;
     gap: 1rem;
     grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 320px);
+    grid-auto-rows: 320px;
+    align-content: start;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contenedor-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

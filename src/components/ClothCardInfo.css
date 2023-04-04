@@ -1,0 +1,73 @@
+.info {
+    text-align: left;    
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.popup {
+    width: 80vw !important;
+    background-color: var(--color5) !important;
+}
+.container {
+    padding: 0 !important;
+}
+
+.info__img {
+    display: block;
+    width: 100%;
+    border-radius: .6rem;
+}
+
+/* s */
+
+.info__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.info__category,
+.info__name-cloth,
+.info__price-cloth,
+.info__title-colors-cloth,
+.info__title-sizes-cloth
+{
+    color: var(--color2);
+    font-weight: bold;
+}
+
+.info__container {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.info__category {
+    font-size: 1rem;
+}
+
+.info__name-cloth {
+    font-size: 2.4rem;
+}
+
+.info__colors-cloth,
+.info__sizes-cloth {
+    display: flex;
+    gap: 1rem;
+}
+
+.option {
+    color: var(--color2);
+    background-color: var(--color6);
+    border-radius: .8rem;
+    font-weight: bold;
+    padding: .5rem 1.2rem;
+}
+
+.info__price-cloth{
+    border-radius: 2rem;
+    padding: .5rem 1.2rem;
+    font-size: 2rem;
+    background-color: var(--color6);
+}
