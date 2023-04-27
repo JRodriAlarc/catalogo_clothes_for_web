@@ -58,7 +58,7 @@ export const AdminAddProduct = () => {
                 [name]: value
             }
         )
-    }
+    } 
 
     const onChangeInputFile = async (e) => {
         const newImgCloth = e.target.files[0]
