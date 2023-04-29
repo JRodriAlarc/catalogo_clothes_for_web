@@ -99,13 +99,6 @@ export const Register = () => {
             setIsLoading(false)
         }
 
-
-
-
-
-
-
-
     }
 
     return (
@@ -118,7 +111,7 @@ export const Register = () => {
                     Bienvenido,
                 </h2>
                 <h1 className={style[`titles__title`]}>
-                    Registrar Cuenta
+                    Crea una Cuenta
                 </h1>
             </div>
 
@@ -144,7 +137,7 @@ export const Register = () => {
                             content="Apellido"
                             value={lastName}
                             onChange={onChangeInput}
-                            icon={<i className="fa-regular fa-user"></i>}
+                            icon={<i class="fa-solid fa-address-book"></i>}
                         />
                     </div>
 

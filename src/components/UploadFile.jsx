@@ -31,7 +31,7 @@ export const UploadFile = ({name, onChangeInputFile, inputFileRef, onClickButton
                             />
                         </svg>
                     </div>
-                    <div>Drag and Drop the files here <br />Or</div>
+                    <div>Arrastra la imagen para <br />cargarla o</div>
                     <input 
                         ref={inputFileRef}
                         type="file" 
@@ -45,7 +45,7 @@ export const UploadFile = ({name, onChangeInputFile, inputFileRef, onClickButton
                         className={style["btn"]}
                         onClick={onClickButtonFile}
                     >
-                        Browse Files
+                        Busque el Archivo
                     </button>
                     
                 </div>

@@ -26,12 +26,10 @@ export const AdminAddProduct = () => {
             setUser(null)
             navigation(`/login`)
 
-
         } catch (error) {
             console.log(error);
         }
     }
-
 
 
     useEffect(() => {
@@ -188,11 +186,12 @@ export const AdminAddProduct = () => {
                 isLoading ? <AwaitLoading /> : null
             }
             <div className={style[`page__row`]}>
-
+                
                 <div className={style[`page__column1`]}>
                     <h1 className={style[`page__title`]}>
-                        Registrar Nueva Prenda
+                        Registrar Prendas
                     </h1>
+                    <hr className={style[`parting__line`]} />
 
                     <div className="" style={{ display: "flex", justifyContent: "center" }}>
                         {
@@ -222,24 +221,29 @@ export const AdminAddProduct = () => {
 
                     />
 
-                    <ButtonCustom 
-                        content={"Cerrar Sesión"}
-                        onClick={logOutFirebase}
-                        icon={<i class="fa-solid fa-angles-right"></i>}
-                        style={
-                            {
-                                width: "180px",
-                                marginLeft: "auto",
-                                marginRight: "auto" 
-                            }
-                        }
-                    />
                 </div>
-
+                
                 <form
                     className={style[`form`]}
                     onSubmit={onSubmitFormAddCloth}
-                >
+                >   
+
+                    <div className={style[`cancel__area`]}>
+                        <ButtonCustom
+                            onClick={logOutFirebase}
+                            type="button"
+                            icon={<i class="fa-solid fa-xmark"></i> /*<i class="fa-solid fa-angles-right"></i>*/}
+                            style={
+                                {
+                                    width: "9vw",
+                                    color: "#b5b8bf",
+                                    fontSize: "xx-large",
+                                    backgroundColor: "transparent",
+                                    marginLeft: "auto",
+                                }
+                            }
+                        />
+                    </div>
 
                     <InputForm
                         content="Nombre de prenda"
