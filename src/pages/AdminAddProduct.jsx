@@ -225,11 +225,12 @@ export const AdminAddProduct = () => {
                     <ButtonCustom 
                         content={"Cerrar Sesión"}
                         onClick={logOutFirebase}
+                        icon={<i class="fa-solid fa-angles-right"></i>}
                         style={
                             {
                                 width: "180px",
                                 marginLeft: "auto",
-                                marginRight: "auto"
+                                marginRight: "auto" 
                             }
                         }
                     />
@@ -299,7 +300,9 @@ export const AdminAddProduct = () => {
 
                     <ButtonCustom
                         content="Agregar Nueva Prenda"
-                        style={{ display: "block", width: "100%" }}
+                        icon={<i class="fa-regular fa-paper-plane"></i>}
+                        style={{ width: "100%", marginLeft: "auto",
+                        marginRight: "auto" }}
                     />
                 </form>
             </div>

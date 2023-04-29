@@ -121,83 +121,80 @@ export const Register = () => {
                     Registrar Cuenta
                 </h1>
             </div>
-            <form
-                method='post'
-                className={style[`form`]}
-                onSubmit={onSubmitForm}
-            >
-                <div className={style[`form__group-input-par`]}>
+
+            <div className={style[`centrar__form`]}>
+                <form
+                    method='post'
+                    className={style[`form`]}
+                    onSubmit={onSubmitForm}
+                >
+                    <div className={style[`form__group-input-par`]}>
+                        <InputForm
+                            typeInput="text"
+                            name="firstName"
+                            content="Nombre"
+                            value={firstName}
+                            onChange={onChangeInput}
+                            icon={<i className="fa-solid fa-user"></i>}
+                        />
+
+                        <InputForm
+                            typeInput="text"
+                            name="lastName"
+                            content="Apellido"
+                            value={lastName}
+                            onChange={onChangeInput}
+                            icon={<i className="fa-regular fa-user"></i>}
+                        />
+                    </div>
+
                     <InputForm
                         typeInput="text"
-                        name="firstName"
-                        content="Nombre"
-                        value={firstName}
+                        name="numberPhone"
+                        content="Teléfono"
+                        value={numberPhone}
                         onChange={onChangeInput}
-                        icon={<i className="fa-solid fa-user"></i>}
+                        icon={<i className="fa-solid fa-phone"></i>}
                     />
 
                     <InputForm
                         typeInput="text"
-                        name="lastName"
-                        content="Apellido"
-                        value={lastName}
+                        name="email"
+                        content="Email"
+                        value={email}
                         onChange={onChangeInput}
-                        icon={<i className="fa-regular fa-user"></i>}
+                        icon={<i className="fa-solid fa-envelope"></i>}
                     />
-                </div>
 
-                <InputForm
-                    typeInput="text"
-                    name="numberPhone"
-                    content="Teléfono"
-                    value={numberPhone}
-                    onChange={onChangeInput}
-                    icon={<i className="fa-solid fa-phone"></i>}
-                />
-
-                <InputForm
-                    typeInput="text"
-                    name="email"
-                    content="Email"
-                    value={email}
-                    onChange={onChangeInput}
-                    icon={<i className="fa-solid fa-envelope"></i>}
-                />
-
-                <InputForm
-                    typeInput="password"
-                    name="password"
-                    content="Contraseña"
-                    value={password}
-                    onChange={onChangeInput}
-                    icon={<i className="fa-solid fa-unlock-keyhole"></i>}
-                />
+                    <InputForm
+                        typeInput="password"
+                        name="password"
+                        content="Contraseña"
+                        value={password}
+                        onChange={onChangeInput}
+                        icon={<i className="fa-solid fa-unlock-keyhole"></i>}
+                    />
 
 
 
-                <ButtonCustom
-                    content={`Registrar Cuenta`}
-                    type={`submit`}
-                    icon={<i className="fa-solid fa-right-to-bracket"></i>}
-                    style=
-                    {
-                        { width: "100%", fontSize: "1.4rem" }
-                    }
+                    <ButtonCustom
+                        content={`Registrar Cuenta`}
+                        type={`submit`}
+                        icon={<i className="fa-solid fa-right-to-bracket"></i>}
+                        style=
+                        {
+                            { width: "100%", fontSize: "1.4rem" }
+                        }
 
-                />
+                    />
 
-                <div className={style[`form__text`]}>
-                    ¿Ya tienes una cuenta ? Inicia Sesión <Link to={`/login`} className={style[`form__link`]}> aqui</Link>
-                </div>
+                    <div className={style[`form__text`]}>
+                        ¿Ya tienes una cuenta ? Inicia Sesión <Link to={`/login`} className={style[`form__link`]}> aqui</Link>
+                    </div>
 
-            </form>
+                </form>
+            </div>
 
-
-            <img
-                src={wave}
-                alt=""
-                className={style['wave-2']}
-            />
         </section>
     )
 }

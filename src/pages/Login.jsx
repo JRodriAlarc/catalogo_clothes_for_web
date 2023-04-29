@@ -6,16 +6,12 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
 import { UserContext } from '../context/UserContext'
 import Swal from 'sweetalert2'
 import style from './Login.module.css'
-import wave from "../images/wave.svg";
 import { getUserByEmail } from '../helpers'
 
 export const Login = () => {
     const { user, setUser } = useContext(UserContext)
     const [isLoading, setIsLoading] = useState(false)
     const navigation = useNavigate()
-
-    
-
 
     useEffect(() => {
         document.title = "Iniciar Sesión"
@@ -122,11 +118,11 @@ export const Login = () => {
         }
     }
     return (
-
         <section className={style[`login`]}>
             {
                 isLoading ? <AwaitLoading /> : null
             }
+
             <div className={style[`titles`]}>
                 <h2 className={style[`titles__subtitle`]}>
                     Bienvenido,
@@ -135,58 +131,50 @@ export const Login = () => {
                     Inicia Sesión
                 </h1>
             </div>
+                
+            <div className={style[`centrar__form`]}>
+                <form
+                    className={style[`form`]}
+                    onSubmit={onSubmitForm}
+                >
+                    <InputForm
+                        typeInput="text"
+                        name="email"
+                        content="Email"
+                        value={email}
+                        onChange={onChangeInput}
+                        icon={<i className="fa-solid fa-envelope"></i>}
+                    />
 
-            <form
-                className={style[`form`]}
-                onSubmit={onSubmitForm}
-            >
-                <InputForm
-                    typeInput="text"
-                    name="email"
-                    content="Email"
-                    value={email}
-                    onChange={onChangeInput}
-                    icon={<i className="fa-solid fa-envelope"></i>}
-                />
+                    <InputForm
+                        typeInput="password"
+                        name="password"
+                        content="Contraseña"
+                        value={password}
+                        onChange={onChangeInput}
+                        icon={<i className="fa-solid fa-unlock-keyhole"></i>}
+                    />
 
-                <InputForm
-                    typeInput="password"
-                    name="password"
-                    content="Contraseña"
-                    value={password}
-                    onChange={onChangeInput}
-                    icon={<i className="fa-solid fa-unlock-keyhole"></i>}
-                />
+                    <ButtonCustom
+                        content={`Iniciar Sesión`}
+                        type={`submit`}
+                        icon={<i class="fa-solid fa-right-to-bracket"></i>}
+                        style=
+                        {
+                            { width: "100%", fontSize: "1.4rem" }
+                        }
+                    />
 
-                <ButtonCustom
-                    content={`Iniciar Sesión`}
-                    type={`submit`}
-                    icon={<i className="fa-solid fa-right-to-bracket"></i>}
-                    style=
-                    {
-                        { width: "100%", fontSize: "1.4rem" }
-                    }
-                />
+                    <div className={style[`form__text`]}>
+                        ¿No tienes una cuenta ? Crea una cuenta <Link to={`/register`} className={style[`form__link`]}> aqui</Link>
+                    </div>
 
-                <div className={style[`form__text`]}>
-                    ¿No tienes una cuenta ? Crea una cuenta <Link to={`/register`} className={style[`form__link`]}> aqui</Link>
-                </div>
-
-            </form>
-        
-            {/* <img
-                src={wave}
-                alt="" 
-                className={style['wave-1']}
-
-            /> */}
-            <img
-                src={wave}
-                alt="" 
-                className={style['wave-2']}
-            />
+                </form>
+            </div>
 
         </section>
+
+        
     )
 }
 

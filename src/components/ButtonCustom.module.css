@@ -26,7 +26,7 @@
 }
 
 .button-custom__span:after {
-    content: '»';
+    content: ' ';
     position: absolute;
     opacity: 0;
     top: 0;

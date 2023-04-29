@@ -3,6 +3,9 @@
     display: flex;
     flex-direction: column;
     background-color: #E8F6FA;
+
+    background-image: url(../images/wave.svg);
+    background-repeat: no-repeat;
 }
 
 .titles {
@@ -25,8 +28,15 @@
     margin-top: 0;
     margin-bottom: 0;
     font-size: 3.4rem;
-    
 }
+
+.centrar__form{
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .form {
     width: 500px;
     display: flex;
@@ -55,22 +65,13 @@
     text-decoration: none;
     font-weight: bold;
 }
-/* .wave-1 {
-    display: block;
-    width: 100vw;
-    bottom: 100px;
-    height: 100px;
-} */
-
-.wave-2 {
-    transform: rotate(180deg);
-    position: fixed;
-    top: -40px;
-}
-
 
 @media screen and (max-width: 400px) {
+    .register {
+        background-size: 160vh;
+    }
+
     .form {
-        width: 90%;
+        width: 80%;
     }
 }
